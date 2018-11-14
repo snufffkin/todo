@@ -1,0 +1,118 @@
+/* традиционный сбро стилей */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #003D42;
+}
+.wrap {
+    display: flex;
+    justify-content: center;
+    margin-left: 20%;
+    flex-direction: column;
+}
+.monster{
+    display: flex;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+}
+.monster h1 {
+    font-family: Merriweather;
+    font-size: 5em;
+    /* padding-bottom: 0.1em; */
+    color: #F07630;
+    /* margin-top: 0.3em; */
+   
+}
+.logo{
+    width: 75px;
+    padding-right: 0.5em;
+}
+.motivation {
+    height: 50px;
+    font-family: Merriweather;
+    color:rgb(255, 250, 250);
+    padding-bottom: 0.3em;
+}
+.input_task {
+    display: flex;
+}
+input {
+    width: 70%;
+    height: 37px;
+    /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.24); */
+    /* border-radius: 30px; */
+    padding: 20px;
+    font-size: 20pt;
+    outline: none;
+    
+}
+
+.button_plus{
+    background-color: #347437;
+    height: 44px;
+    width: 44px;
+    margin-left: 1.2em;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button_plus i{
+    color: white;
+    font-size: 1.4em;
+}
+.button_plus:hover{
+    box-shadow: 2px 2px 5px #721818;
+    transition: all 0.5s;
+    background-color: #ED492F;
+}
+.task {
+    width: 80%;
+    height: 65px;
+    padding: 20px;
+    margin-top: 20px;
+    background: #FAFAFA;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    font-family: Roboto;
+}
+.wrap-task {
+    display: flex;
+    align-items: center;
+    
+}
+.task img{
+    height: 50px;
+    margin-right: 40px;
+    padding: 2px;
+ 
+}
+.tasks {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.trash {
+    margin-top:20px;
+    margin-left: 0.5em;
+    font-size: 2em;
+    color: #dfdfdf;
+}
+.trash:hover{
+    cursor: pointer;
+    color:#ED492F;
+}
+.trans{
+    display: none;
+    transition: all 0.6s;
+}

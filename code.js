@@ -1,55 +1,52 @@
-window.onload = function() {
-  var motivation = ['Дойдя до конца, люди смеются над страхами, мучившими их вначале.',
+// window.onload = function() {
+  // я закомментировал загрузку, зато добавил async  к script в html. Так короче
+  var motivation_array = ['Дойдя до конца, люди смеются над страхами, мучившими их вначале.',
 'Если ты не знаешь, чего хочешь, ты в итоге останешься с тем, чего точно не хочешь. ',
 'Чтобы дойти до цели, надо идти. ',
-'Это своего рода забава, делать невозможное. ']
-  var color_back = ["AliceBlue ", "Chocolate ","Crimson", "DarkBlue", "DarkMagenta", "DarkOrange"];
-  //здесь мы задаем массив с цветеами, которые отображаются на to-do
+'Это своего рода забава, делать невозможное. '];
+  //здесь мы задаем массив с фразами, которые должны нас мотивировать
 
 
-  let button = document.querySelector('button');
+  let button = document.querySelector('.button_plus');
   let wrap = document.querySelector('.tasks');
   let field = document.querySelector('input');
-  let todo = document.querySelector(".todo-list");
-  
+  //а зачем мы задаем разные имена классам в html и js? Капитан очевидность негодуэ
 
+
+    //здесь у нас написана функция, которая регулирует смену фраз на заднем плане
+//прекрасная функция, но какая же длинная. Впрочем короче её не написать( а я только удлинил)
   function changePhrase() {
-    document.querySelector('.motivation').innerHTML = motivation[Math.round(Math.random()*(motivation.length - 1))]
+    document.querySelector('.motivation').innerHTML = motivation_array[Math.round(Math.random()*(motivation_array.length - 1))]
   }
-  //здесь у нас написана функция, которая регулирует смнеу задника на заднем плане
-  setInterval(changePhrase, 10000)
+  //запуск смены кадров;
+  setInterval(changePhrase, 10000);
 
 
 
-//запуск смены кадров;
-
-
-
-
-
-
+//функция создания нового дела
 function createItem(){
     let text = field.value
     if (!text) {
-      return
+      return;
+      //здесь проверяем на наличие пустого поля
     }
     let index = Math.round(Math.random()*27);
     wrap.insertAdjacentHTML('afterbegin', `<div class='wrap-task'><div class="task">
     <img src="monsters/svg/monster-${index}.svg">
     <p>${text}</p>
 </div>
-<img class="trash" src="delete.svg">
+<i class="fas fa-trash-alt trash"></i>
 </div>
  `);
- field.value = ''
-    
+ //там я поменял мусор на библиотечный. хех
+ field.value = '';
 }
   
 
 
-
 button.onclick = function (){
     createItem();
+//здесь создается item. Но что-то мне подсказывает, что можно было переписать куда короче
 }
 
 document.addEventListener('keypress', (event) => {
@@ -61,29 +58,31 @@ document.addEventListener('keypress', (event) => {
 
 document.addEventListener('keydown', function(event) {
     if (event.code == '13' && (event.ctrlKey || event.metaKey)) {
-      alert('Undo!')
+      alert('Undo!');
+      //чего делать этот кусок кода? я хз, я откуда-то его скопировал
     }
   });
 
 
 
 
-
-
 // удаление элемента
 wrap.addEventListener('click', function (event) {
-  if (event.target.className == 'trash') {
-    event.target.closest('.wrap-task').remove()
+  let item = event.target.closest('i');
+  let item2 = event.target.closest('.wrap-task');
+
+  if (!item || !wrap.contains(item)) {
+    return;
   }
+
+
+  item2.className = "animated zoomOutLeft";
+  setTimeout(function(){
+    item2.className = "trans";
+  }, 600)
+ //эта часть получилась ппц какой сложной. Мда, зато анимации
 });
   
 
 
-
-
-
-
-
-
-
-}
+// }
