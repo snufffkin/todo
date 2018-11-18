@@ -4,35 +4,34 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     background-color: #003D42;
 }
-.wrap {
+/* обертка для всего приложения */
+.logo{
+    width: 75px;
+    padding-right: 0.5em;
+}
+.main_wrap {
     display: flex;
     justify-content: center;
     margin-left: 20%;
     flex-direction: column;
 }
-.monster{
+/* вторая обертка */
+.todo_monster{
     display: flex;
     align-items: center;
     margin-top: 1em;
     margin-bottom: 0.3em;
 }
-.monster h1 {
+.todo_monster h1 {
     font-family: Merriweather;
     font-size: 5em;
-    /* padding-bottom: 0.1em; */
     color: #F07630;
-    /* margin-top: 0.3em; */
-   
 }
-.logo{
-    width: 75px;
-    padding-right: 0.5em;
-}
-.motivation {
+
+.motivation_speech {
     height: 50px;
     font-family: Merriweather;
     color:rgb(255, 250, 250);
@@ -44,14 +43,11 @@ body {
 input {
     width: 70%;
     height: 37px;
-    /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.24); */
-    /* border-radius: 30px; */
     padding: 20px;
     font-size: 20pt;
     outline: none;
     
 }
-
 .button_plus{
     background-color: #347437;
     height: 44px;
@@ -83,7 +79,7 @@ input {
     display: flex;
     align-items: center;
     font-size: 2em;
-    font-family: Roboto;
+    font-family: Roboto, serif;
 }
 .wrap-task {
     display: flex;
