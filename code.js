@@ -1,55 +1,55 @@
-window.onload = function() {
-  var motivation = ['Дойдя до конца, люди смеются над страхами, мучившими их вначале.',
+
+  var motivation_array = ['Дойдя до конца, люди смеются над страхами, мучившими их вначале.',
 'Если ты не знаешь, чего хочешь, ты в итоге останешься с тем, чего точно не хочешь. ',
-'Чтобы дойти до цели, надо идти. ',
-'Это своего рода забава, делать невозможное. ']
-  var color_back = ["AliceBlue ", "Chocolate ","Crimson", "DarkBlue", "DarkMagenta", "DarkOrange"];
-  //здесь мы задаем массив с цветеами, которые отображаются на to-do
+'Все победы начинаются с победы над самим собой',
+'Это своего рода забава, делать невозможное. ','Неважно, кто мы такие, важно, какой у нас план'];
+  //здесь мы задаем массив с фразами, которые должны нас мотивировать
 
 
-  let button = document.querySelector('button');
-  let wrap = document.querySelector('.tasks');
+  let button = document.querySelector('.button_plus');
+  let tasks = document.querySelector('.tasks');
   let field = document.querySelector('input');
-  let todo = document.querySelector(".todo-list");
-  
+  let logo = document.querySelector('.logo');
+  //а зачем мы задаем разные имена классам в html и js? Капитан очевидность негодуэ
 
+
+    //здесь у нас написана функция, которая регулирует смену фраз на заднем плане
+//прекрасная функция, но какая же длинная. Впрочем короче её не написать( а я только удлинил)
+// написать её короче можно только если добавить еще одну функцию Rand
   function changePhrase() {
-    document.querySelector('.motivation').innerHTML = motivation[Math.round(Math.random()*(motivation.length - 1))]
+    document.querySelector('.motivation_speech').innerHTML = motivation_array[Math.round(Math.random()*(motivation_array.length - 1))];
+    logo.className = "logo animated flash slow";
   }
-  //здесь у нас написана функция, которая регулирует смнеу задника на заднем плане
-  setInterval(changePhrase, 10000)
+  //запуск смены фраз;
+  setInterval(changePhrase, 8000);
+  setInterval(function(){
+    logo.className = "logo";
+  }, 19000);
 
 
-
-//запуск смены кадров;
-
-
-
-
-
-
+//функция создания нового дела
 function createItem(){
-    let text = field.value
+    let text = field.value;
     if (!text) {
-      return
+      return;
+      //здесь проверяем на наличие пустого поля
     }
     let index = Math.round(Math.random()*27);
-    wrap.insertAdjacentHTML('afterbegin', `<div class='wrap-task'><div class="task">
+    tasks.insertAdjacentHTML('afterbegin', `<div class='wrap-task'><div class="task">
     <img src="monsters/svg/monster-${index}.svg">
     <p>${text}</p>
 </div>
-<img class="trash" src="delete.svg">
+<i class="fas fa-trash-alt trash"></i>
 </div>
  `);
- field.value = ''
-    
+ field.value = '';
 }
   
 
 
-
 button.onclick = function (){
     createItem();
+//здесь создается item. Но что-то мне подсказывает, что можно было переписать куда короче
 }
 
 document.addEventListener('keypress', (event) => {
@@ -59,31 +59,33 @@ document.addEventListener('keypress', (event) => {
   });
 
 
-document.addEventListener('keydown', function(event) {
-    if (event.code == '13' && (event.ctrlKey || event.metaKey)) {
-      alert('Undo!')
-    }
-  });
-
-
+// document.addEventListener('keydown', function(event) {
+//     if (event.code == '13' && (event.ctrlKey || event.metaKey)) {
+//       alert('Undo!');
+//       //чего делать этот кусок кода? я хз, я откуда-то его скопировал
+//     }
+//   });
 
 
 
 
 // удаление элемента
-wrap.addEventListener('click', function (event) {
-  if (event.target.className == 'trash') {
-    event.target.closest('.wrap-task').remove()
+tasks.addEventListener('click', function (event) {
+  let item = event.target.closest('i');
+  let item2 = event.target.closest('.wrap-task');
+
+  if (!item || !tasks.contains(item)) {
+    return;
   }
+
+
+  item2.className = "animated rollOut";
+  item.style.display = "none";
+  setTimeout(function(){
+    item2.parentNode.removeChild(item2);
+    
+  }, 700)
+ //эта часть получилась ппц какой сложной. Мда, зато анимации
 });
   
 
-
-
-
-
-
-
-
-
-}
