@@ -1,39 +1,60 @@
-
-  var motivation_array = ['Дойдя до конца, люди смеются над страхами, мучившими их вначале.',
-'Если ты не знаешь, чего хочешь, ты в итоге останешься с тем, чего точно не хочешь. ',
+//здесь мы задаем массив с фразами, которые должны нас мотивировать
+let motivation_array = ['К черту все! Берись и делай!',
+'Если ты не знаешь, чего хочешь, ты в итоге останешься с тем, чего точно не хочешь',
 'Все победы начинаются с победы над самим собой',
-'Это своего рода забава, делать невозможное. ','Неважно, кто мы такие, важно, какой у нас план'];
-  //здесь мы задаем массив с фразами, которые должны нас мотивировать
+'Это своего рода забава, делать невозможное','Неважно, кто мы такие, важно, какой у нас план'];
 
 
-  let button = document.querySelector('.button_plus');
-  let tasks = document.querySelector('.tasks');
-  let field = document.querySelector('input');
-  let logo = document.querySelector('.logo');
-  //а зачем мы задаем разные имена классам в html и js? Капитан очевидность негодуэ
+
+let button = document.querySelector('.button_plus');
+let tasks = document.querySelector('.tasks');
+let field = document.querySelector('input');
+let logo = document.querySelector('.logo');
 
 
-    //здесь у нас написана функция, которая регулирует смену фраз на заднем плане
-//прекрасная функция, но какая же длинная. Впрочем короче её не написать( а я только удлинил)
-// написать её короче можно только если добавить еще одну функцию Rand
-  function changePhrase() {
-    document.querySelector('.motivation_speech').innerHTML = motivation_array[Math.round(Math.random()*(motivation_array.length - 1))];
-    logo.className = "logo animated flash slow";
+// здесь у нас происходит смена цитат
+function changePhrase() {
+  document.querySelector('.motivation_speech').innerHTML = motivation_array[Math.round(Math.random()*(motivation_array.length - 1))];
+  logo.className = "logo animated flash slow";
+    //здесь надо переписать через addClass
   }
   //запуск смены фраз;
-  setInterval(changePhrase, 8000);
-  setInterval(function(){
-    logo.className = "logo";
-  }, 19000);
+setInterval(changePhrase, 8000);
+//запуск смены лого
+setInterval(function(){
+  logo.className = "logo";
+}, 19000);
+
+
+
+function DrawonLoad(){
+  for(key in localStorage)
+  if(key.charAt(0)=="+"){
+  key = key.substring(1);
+  let index = Math.round(Math.random()*27);
+    tasks.insertAdjacentHTML('afterbegin', `<div class='wrap-task'><div class="task">
+    <img src="monsters/svg/monster-${index}.svg">
+    <p>${key}</p>
+  </div>
+  <i class="fas fa-trash-alt trash"></i>
+  </div>
+  `);
+  field.value = '';
+  }
+}
+DrawonLoad();
+
 
 
 //функция создания нового дела
 function createItem(){
-    let text = field.value;
+  let text = field.value;
     if (!text) {
-      return;
-      //здесь проверяем на наличие пустого поля
+      return; 
+      //return сразу прекращает выполнение функции
     }
+    let x ="+"+text;
+    localStorage.setItem(x, x);
     let index = Math.round(Math.random()*27);
     tasks.insertAdjacentHTML('afterbegin', `<div class='wrap-task'><div class="task">
     <img src="monsters/svg/monster-${index}.svg">
@@ -59,15 +80,6 @@ document.addEventListener('keypress', (event) => {
   });
 
 
-// document.addEventListener('keydown', function(event) {
-//     if (event.code == '13' && (event.ctrlKey || event.metaKey)) {
-//       alert('Undo!');
-//       //чего делать этот кусок кода? я хз, я откуда-то его скопировал
-//     }
-//   });
-
-
-
 
 // удаление элемента
 tasks.addEventListener('click', function (event) {
@@ -78,14 +90,15 @@ tasks.addEventListener('click', function (event) {
     return;
   }
 
-
-  item2.className = "animated rollOut";
-  item.style.display = "none";
+  item2.className = "animated flipOutX wrap-task";
   setTimeout(function(){
     item2.parentNode.removeChild(item2);
-    
+    let x = item2.textContent;
+    x = x.trim();
+    //трим вырезает лишние пробелы
+    x = "+"+x;
+    localStorage.removeItem(x);
   }, 700)
- //эта часть получилась ппц какой сложной. Мда, зато анимации
 });
   
 
